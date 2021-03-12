@@ -1,17 +1,39 @@
 'use strict';
-const mysql = require('mysql');
+const mariadb = require('mariadb');
 
 //local mysql db connection
-const dbConn = mysql.createConnection({
+const pool = mariadb.createPool({
   host: 'localhost',
   user: 'root',
   password: 'karisma125',
-  database: 'programmer'
+  connectionLimit: 5,
+  port: 3307,
+  database: "programmer"
 });
 
-dbConn.connect((err) => {
-  if(err) throw err;
-  console.log('connection success!!')
-});
+pool.getConnection()
+  .then(conn => {
+    if(conn) console.log("Database Connected !!")
 
-module.exports = dbConn;
+    /*
+    conn.query("SELECT 1 as val")
+      .then((rows) => {
+        console.log(rows);
+        return conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"]);
+      })
+      .then( res => {
+        console.log(res);
+        conn.end();
+      })
+      .catch(err => {
+        //handle error
+        console.log(err);
+        conn.end();
+      })
+      */
+  }).catch(err => {
+    console.log("Database not connected");
+    conn.end();
+  })
+
+module.exports = pool;
