@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const programmerRouter = require('./src/routes/programmer.route');
+const programmerSkillRouter = require('./src/routes/programmer-skill.route');
 
 
 //create an express app
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 })
 //using programmerRouter as midd
 app.use('/api/programmer',programmerRouter);
+app.use('/api/programmer-skill',programmerSkillRouter);
 
 //listen for request
 app.listen(port, () => {
