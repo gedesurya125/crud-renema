@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const programmerRouter = require('./src/routes/programmer.route');
 const programmerSkillRouter = require('./src/routes/programmer-skill.route');
-
+const cors = require('cors');
 
 //create an express app
 const app = express();
@@ -10,6 +10,9 @@ const app = express();
 //set the server port
 
 const port = process.env.PORT || 5000;
+
+//Using CORS
+app.use(cors());
 
 //parse request url encoded
 app.use(bodyParser.urlencoded({ extended: true }));
